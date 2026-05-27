@@ -23,6 +23,17 @@ class TodosControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to todo_url(Todo.last)
   end
 
+  test "should create todo with due_date" do
+    due = Time.zone.parse("2026-06-01 14:30:00")
+
+    assert_difference("Todo.count") do
+      post todos_url, params: { todo: { description: "Pay rent", due_date: due } }
+    end
+
+    assert_redirected_to todo_url(Todo.last)
+    assert_in_delta due.to_i, Todo.last.due_date.to_i, 1
+  end
+
   test "should show todo" do
     get todo_url(@todo)
     assert_response :success
