@@ -1,0 +1,13 @@
+---
+description: Security rules for the sample todo app
+alwaysApply: true
+---
+
+# Security rules
+
+- **Secrets:** Never write, log, echo, or commit secrets, API keys, tokens, or production credentials. Do not read or suggest changes to ignored files (`.env`, `config/master.key`, `config/credentials/*.key`). Use Rails credentials or environment variables only when explicitly required and never paste real values into chat or code.
+- **User input:** Never call `eval`, `instance_eval`, `class_eval`, or similar on request params, cookies, or other user-controlled data.
+- **XSS:** Never mark untrusted input as HTML-safe. Do not use `html_safe`, `raw`, or `<%==` on user-supplied or request-derived strings. Use default ERB escaping and Rails sanitizers when HTML is required.
+- **SQL:** Use ActiveRecord query methods and bound parameters. Never build SQL with string interpolation of user input (e.g. avoid `"WHERE id = #{params[:id]}"`).
+- **Rails protections:** Do not disable CSRF protection in application code (no `skip_before_action :verify_authenticity_token`). Do not bypass strong parameters or mass-assign from `params` without an explicit permitted list (`params.expect` / `permit`). This app has no Devise today; if authentication is added later, do not disable its session or authentication checks.
+- **Dependencies:** Do not add gems or disable security-related defaults without explicit approval. Run `bin/brakeman` when making security-sensitive changes.

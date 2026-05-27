@@ -1,0 +1,14 @@
+.env
+.env.*
+config/master.key
+config/credentials/*.key
+tmp/
+log/
+storage/
+node_modules/
+
+# Additional local/dev artifacts to keep out of AI context
+.bundle/
+vendor/bundle/
+coverage/
+.DS_Store

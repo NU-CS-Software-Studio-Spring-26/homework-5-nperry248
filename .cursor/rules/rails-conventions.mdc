@@ -1,0 +1,16 @@
+---
+description: Rails 8 conventions for the sample todo app
+alwaysApply: true
+---
+
+# Rails conventions (todo app)
+
+- **Scope:** This repo is a single-resource Rails 8.1 todo app (`Todo`, `TodosController`, `resources :todos`). Do not add unrelated models, engines, or migrations from other projects.
+- **Generators:** Prefer `bin/rails generate` (model, migration, controller, scaffold) over hand-written boilerplate when adding standard Rails pieces.
+- **Database:** Change schema only via reversible migrations in `db/migrate/`. Never hand-edit `db/schema.rb`.
+- **Strong parameters:** Permit attributes in a private `*_params` method using `params.expect` (see `TodosController#todo_params`). Do not mass-assign from `params` directly.
+- **Controllers:** Use `respond_to` with `format.html` and/or `format.json` to match existing actions. For in-page updates without a full reload, prefer **Turbo Streams** (`format.turbo_stream` + `*.turbo_stream.erb`) over custom JavaScript.
+- **Views:** Keep shared todo UI in `app/views/todos/` partials (`_todo.html.erb`, `_form.html.erb`). Use `dom_id(record)` for element IDs. Use `form_with` for forms. JSON responses use jbuilder under `app/views/todos/`.
+- **JavaScript:** Stimulus controllers live under `app/javascript/controllers/` and are pinned via `config/importmap.rb`. Do not add inline `<script>` tags in ERB.
+- **Tests:** Add or extend **Minitest** tests under `test/` (fixtures in `test/fixtures/`). Do not introduce RSpec.
+- **Dependencies:** Do not add gems without explicit approval. Match existing stack (Hotwire, importmap, propshaft, SQLite).
